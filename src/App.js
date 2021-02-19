@@ -25,16 +25,16 @@ class App extends Component {
 
   handleSearchInput = (event) => {
     this.setState({searchInput: event.target.value});
-    console.log("input : " + event.target.value)
-    console.log("state : " + this.state.searchInput)
   }
 
   render() {
     return (
       <div className="container">
         <div className="row">
-          <List movies={this.state.movies} />
           <MainSearch handleSubmit={this.handleSubmit} handleSearchInput={this.handleSearchInput} />
+        </div>
+        <div className="row">
+          <List movies={this.state.movies} />
         </div>
       </div>
     )
