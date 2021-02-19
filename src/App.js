@@ -8,18 +8,25 @@ class App extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          movies: []
+          movies: [],
+          searchInput: ''
       };
   }
 
-  fetchMovies = () => {
-    console.log(url + apiKey + "&query=Matrix");
-    fetch(url + apiKey + "&query=Matrix")
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    fetch(url + apiKey + "&query=" + this.state.searchInput)
     .then(data => data.json())
     .then(data => {
-      console.log(data.results)
       this.setState({ movies: data.results})
     })
+  }
+
+  handleSearchInput = (event) => {
+    this.setState({searchInput: event.target.value});
+    console.log("input : " + event.target.value)
+    console.log("state : " + this.state.searchInput)
   }
 
   render() {
@@ -27,7 +34,7 @@ class App extends Component {
       <div className="container-fluid">
         <div className="row">
           <List movies={this.state.movies} />
-          <MainSearch fetchMovies={this.fetchMovies} />
+          <MainSearch handleSubmit={this.handleSubmit} handleSearchInput={this.handleSearchInput} />
         </div>
       </div>
     )

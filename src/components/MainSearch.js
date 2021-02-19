@@ -2,8 +2,12 @@ import React from 'react';
 
 const MainSearch = (props) => {
     return (
-        <div>
-            <button onClick={props.fetchMovies}>Get Movies</button>
+        <div className="row">
+            <form onSubmit={props.handleSubmit}>
+                <div>
+                    <input placeholder="Search..." onChange={props.handleSearchInput} type="text" />
+                </div>
+            </form>
         </div>
     )
 }
