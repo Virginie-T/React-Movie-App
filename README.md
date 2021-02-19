@@ -1,2 +1,2 @@
 # React-Movie-App
-React.js movie app using OMDb API.
+React.js movie app using TMDB API.
