@@ -31,7 +31,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container">
         <div className="row">
           <List movies={this.state.movies} />
           <MainSearch handleSubmit={this.handleSubmit} handleSearchInput={this.handleSearchInput} />
