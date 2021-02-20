@@ -80,3 +80,8 @@ h1 {
 .modal {
   color: black;
 }
+
+.horizontal .row {
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}

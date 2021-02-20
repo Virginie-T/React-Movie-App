@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
 import List from './components/List';
+import TopRatedMoviesList from './components/TopRatedMovies';
+import PopularMoviesList from './components/PopularMovies';
 import MainSearch from './components/MainSearch'
-import {apiKey, searchURL, upcomingURL, topRatedURL, popularURL} from './apiKey';
-import { Button } from 'reactstrap';
+import {apiKey, searchURL} from './apiKey';
 
 
 class App extends Component {
@@ -11,8 +12,7 @@ class App extends Component {
       super(props);
       this.state = {
           movies: [],
-          searchInput: '',
-          currentMovie: null
+          searchInput: ''
       };
   }
 
@@ -26,38 +26,8 @@ class App extends Component {
     })
   }
 
-  getUpcomingMovies = () => {
-    fetch(upcomingURL + apiKey)
-    .then(data => data.json())
-    .then(data => {
-      this.setState({ movies: data.results})
-    })
-  }
-
-  getTopRatedMovies = () => {
-    fetch(topRatedURL + apiKey)
-    .then(data => data.json())
-    .then(data => {
-      this.setState({ movies: data.results})
-    })
-  }
-
-  getPopularMovies = () => {
-    fetch(popularURL + apiKey)
-    .then(data => data.json())
-    .then(data => {
-      this.setState({ movies: data.results})
-    })
-  }
-
   handleSearchInput = (event) => {
     this.setState({searchInput: event.target.value});
-  }
-
-  viewDetails = (id) => {
-    const filteredMovie = this.state.movies.filter(movie => movie.id == id);
-    const selectedMovie = filteredMovie.length > 0 ? filteredMovie[0] : null;
-    this.setState({ currentMovie : selectedMovie });
   }
 
   render() {
@@ -71,9 +41,8 @@ class App extends Component {
             <h1>Movie Finder</h1>
           </div>
             <MainSearch searchMovies={this.searchMovies} handleSearchInput={this.handleSearchInput} />
-            <Button onClick={this.getUpcomingMovies}>Upcoming Movies</Button>
-            <Button onClick={this.getTopRatedMovies}>Top Rated Movies</Button>
-            <Button onClick={this.getPopularMovies}>Popular Movies</Button>
+            <PopularMoviesList />
+            <TopRatedMoviesList />
             <List movies={this.state.movies} />
         </div>
       </>
