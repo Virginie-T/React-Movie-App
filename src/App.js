@@ -42,15 +42,11 @@ class App extends Component {
           <img src="https://www.jahangeer.com/wp-content/uploads/2014/12/2400x780_Movie2014Banner.jpg" alt="movie banner" />
         </div>
         <div className="container">
-          <div className="row">
+          <div className="row pt-4">
             <h1>Movie Finder</h1>
           </div>
-          <div className="row">
             <MainSearch handleSubmit={this.handleSubmit} handleSearchInput={this.handleSearchInput} />
-          </div>
-          <div className="row">
             <List movies={this.state.movies} />
-          </div>
         </div>
       </>
     )

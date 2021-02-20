@@ -1,6 +1,20 @@
 body {
-  background: #141414 !important;
   color: #fff !important;
+  background: linear-gradient(-45deg, #141414, #39083f, #042c35, #141414, #042c35);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .card-body {
@@ -19,7 +33,10 @@ body {
   cursor: pointer;
 }
 
-.card { width: 220px; }
+.card { 
+  width: 220px; 
+  border: none;
+}
 
 .banner img {
   width: 100%;
@@ -28,6 +45,7 @@ body {
 .banner {
   display:block;
   position:relative;
+  box-shadow: 0 0px 55px 35px #141414;
 }
   
 .banner:before {
@@ -47,4 +65,8 @@ form {
 h1 { 
   text-align: center; 
   width: 100%;
+}
+
+.modal {
+  color: black;
 }
