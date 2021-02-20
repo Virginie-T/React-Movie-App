@@ -4,12 +4,14 @@ import List from './components/List';
 import MainSearch from './components/MainSearch'
 import {apiKey, url} from './apiKey';
 
+
 class App extends Component {
   constructor(props) {
       super(props);
       this.state = {
           movies: [],
-          searchInput: ''
+          searchInput: '',
+          currentMovie: null
       };
   }
 
@@ -27,16 +29,30 @@ class App extends Component {
     this.setState({searchInput: event.target.value});
   }
 
+  viewDetails = (id) => {
+    const filteredMovie = this.state.movies.filter(movie => movie.id == id);
+    const selectedMovie = filteredMovie.length > 0 ? filteredMovie[0] : null;
+    this.setState({ currentMovie : selectedMovie });
+  }
+
   render() {
     return (
-      <div className="container">
-        <div className="row">
-          <MainSearch handleSubmit={this.handleSubmit} handleSearchInput={this.handleSearchInput} />
+      <>
+        <div className="container-fluid p-0 banner">
+          <img src="https://www.jahangeer.com/wp-content/uploads/2014/12/2400x780_Movie2014Banner.jpg" alt="movie banner" />
         </div>
-        <div className="row">
-          <List movies={this.state.movies} />
+        <div className="container">
+          <div className="row">
+            <h1>Movie Finder</h1>
+          </div>
+          <div className="row">
+            <MainSearch handleSubmit={this.handleSubmit} handleSearchInput={this.handleSearchInput} />
+          </div>
+          <div className="row">
+            <List movies={this.state.movies} />
+          </div>
         </div>
-      </div>
+      </>
     )
   }
 }
