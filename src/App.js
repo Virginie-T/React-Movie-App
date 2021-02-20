@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 import List from './components/List';
 import MainSearch from './components/MainSearch'
-import {apiKey, url} from './apiKey';
+import {apiKey, searchURL, upcomingURL, topRatedURL, popularURL} from './apiKey';
+import { Button } from 'reactstrap';
 
 
 class App extends Component {
@@ -15,10 +16,34 @@ class App extends Component {
       };
   }
 
-  handleSubmit = (event) => {
+  searchMovies = (event) => {
     event.preventDefault();
 
-    fetch(url + apiKey + "&query=" + this.state.searchInput)
+    fetch(searchURL + apiKey + "&query=" + this.state.searchInput)
+    .then(data => data.json())
+    .then(data => {
+      this.setState({ movies: data.results})
+    })
+  }
+
+  getUpcomingMovies = () => {
+    fetch(upcomingURL + apiKey)
+    .then(data => data.json())
+    .then(data => {
+      this.setState({ movies: data.results})
+    })
+  }
+
+  getTopRatedMovies = () => {
+    fetch(topRatedURL + apiKey)
+    .then(data => data.json())
+    .then(data => {
+      this.setState({ movies: data.results})
+    })
+  }
+
+  getPopularMovies = () => {
+    fetch(popularURL + apiKey)
     .then(data => data.json())
     .then(data => {
       this.setState({ movies: data.results})
@@ -39,13 +64,16 @@ class App extends Component {
     return (
       <>
         <div className="container-fluid p-0 banner">
-          <img src="https://www.jahangeer.com/wp-content/uploads/2014/12/2400x780_Movie2014Banner.jpg" alt="movie banner" />
+          <img src="https://i.postimg.cc/htK9C9mr/long-Banner.jpg" alt="Movie Banner" />
         </div>
         <div className="container">
-          <div className="row pt-4">
+          <div className="row pt-5">
             <h1>Movie Finder</h1>
           </div>
-            <MainSearch handleSubmit={this.handleSubmit} handleSearchInput={this.handleSearchInput} />
+            <MainSearch searchMovies={this.searchMovies} handleSearchInput={this.handleSearchInput} />
+            <Button onClick={this.getUpcomingMovies}>Upcoming Movies</Button>
+            <Button onClick={this.getTopRatedMovies}>Top Rated Movies</Button>
+            <Button onClick={this.getPopularMovies}>Popular Movies</Button>
             <List movies={this.state.movies} />
         </div>
       </>

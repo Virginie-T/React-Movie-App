@@ -9,8 +9,6 @@ const Movie = ({movie}) => {
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
-    console.log(movie)
-
     return (
         <div className="m-3">
             <div key={movie.id}>        
