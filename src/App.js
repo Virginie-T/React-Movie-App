@@ -3,7 +3,7 @@ import './App.css';
 import List from './components/List';
 import TopRatedMoviesList from './components/TopRatedMovies';
 import MainSearch from './components/MainSearch'
-import {apiKey, searchURL, topRatedURL, popularURL} from './apiKey';
+import {apiKey, searchURL, topRatedURL, popularURL, upcomingURL} from './apiKey';
 
 
 class App extends Component {
@@ -13,7 +13,8 @@ class App extends Component {
           movies: [],
           searchInput: '',
           topRatedMoviesList: [],
-          popularMoviesList: []
+          popularMoviesList: [],
+          upcomingMoviesList: []
       };
   }
 
@@ -45,6 +46,14 @@ class App extends Component {
       .then(data => {
           this.setState({ popularMoviesList: data.results})
       })
+  }
+
+  getUpcomingMovies = async () => {
+    await fetch(upcomingURL + apiKey)
+    .then(data => data.json())
+    .then(data => {
+        this.setState({ upcomingMoviesList: data.results})
+    })
   }
 
   render() {
