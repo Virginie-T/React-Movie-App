@@ -2,17 +2,17 @@ import React, {Component} from 'react';
 import './App.css';
 import List from './components/List';
 import TopRatedMoviesList from './components/TopRatedMovies';
-import PopularMoviesList from './components/PopularMovies';
 import MainSearch from './components/MainSearch'
-import {apiKey, searchURL} from './apiKey';
+import {apiKey, searchURL, topRatedURL} from './apiKey';
 
 
 class App extends Component {
   constructor(props) {
       super(props);
-      this.state = {
+      this.state = {,
           movies: [],
-          searchInput: ''
+          searchInput: '',
+          topRatedMoviesList: []
       };
   }
 
@@ -30,6 +30,14 @@ class App extends Component {
     this.setState({searchInput: event.target.value});
   }
 
+  getTopRatedMovies = async () => {
+        await fetch(topRatedURL + apiKey)
+        .then(data => data.json())
+        .then(data => {
+            this.setState({ topRatedMoviesList: data.results})
+        })
+    }
+
   render() {
     return (
       <>
@@ -41,8 +49,8 @@ class App extends Component {
             <h1>Movie Finder</h1>
           </div>
             <MainSearch searchMovies={this.searchMovies} handleSearchInput={this.handleSearchInput} />
-            <PopularMoviesList />
-            <TopRatedMoviesList />
+            {/* <PopularMoviesList /> */}
+            <TopRatedMoviesList getTopRatedMovies={this.getTopRatedMovies} topRatedMoviesList={this.state.topRatedMoviesList} />
             <List movies={this.state.movies} />
         </div>
       </>

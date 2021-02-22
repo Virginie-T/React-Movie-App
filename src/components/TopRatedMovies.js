@@ -1,33 +1,22 @@
-import React, {Component} from 'react';
+import React, {useEffect} from 'react';
 import List from './List'
 import { apiKey, topRatedURL } from './../apiKey';
 
 
-class TopRatedMoviesList extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          topRatedMoviesList: []
-      };
-  }
+const TopRatedMoviesList = (props) => {
 
-    getTopRatedMovies = () => {
-        fetch(topRatedURL + apiKey)
-        .then(data => data.json())
-        .then(data => {
-            this.setState({ topRatedMoviesList: data.results})
-        })
-    }
+    useEffect(() => {
+        props.getTopRatedMovies();
+    }, []);
+
+    console.log(props.topRatedMoviesList)
     
-    render() {
-        return (
-            <div className="container-fluid horizontal">
-                {this.getTopRatedMovies()}
-                <h3 className="mt-3">Top Rated Movies</h3>
-                <List movies={this.state.topRatedMoviesList} />
-            </div>
-        )
-    }
+    return (
+        <div className="container-fluid horizontal">
+            <h3 className="mt-3">Top Rated Movies</h3>
+            <List movies={props.topRatedMoviesList} />
+        </div>
+    )
 }
 
 export default TopRatedMoviesList;
