@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 import List from './components/List';
 import TopRatedMoviesList from './components/TopRatedMovies';
+import PopularMoviesList from './components/PopularMoviesList';
+import UpcomingList from './components/UpcomingList';
 import MainSearch from './components/MainSearch'
 import {apiKey, searchURL, topRatedURL, popularURL, upcomingURL} from './apiKey';
 
@@ -67,7 +69,8 @@ class App extends Component {
             <h1>Movie Finder</h1>
           </div>
             <MainSearch searchMovies={this.searchMovies} handleSearchInput={this.handleSearchInput} />
-            <PopularMoviesList getPopularMovies={this.getPopularMovies} />
+            <PopularMoviesList getPopularMovies={this.getPopularMovies} popularMoviesList={this.state.popularMoviesList}/>
+            <UpcomingList getUpcomingMovies={this.getUpcomingMovies} upcomingMoviesList={this.state.upcomingMoviesList}/>
             <TopRatedMoviesList getTopRatedMovies={this.getTopRatedMovies} topRatedMoviesList={this.state.topRatedMoviesList} />
             <List movies={this.state.movies} />
         </div>
