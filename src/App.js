@@ -3,7 +3,7 @@ import './App.css';
 import List from './components/List';
 import TopRatedMoviesList from './components/TopRatedMovies';
 import MainSearch from './components/MainSearch'
-import {apiKey, searchURL, topRatedURL} from './apiKey';
+import {apiKey, searchURL, topRatedURL, popularURL} from './apiKey';
 
 
 class App extends Component {
@@ -12,7 +12,8 @@ class App extends Component {
       this.state = {,
           movies: [],
           searchInput: '',
-          topRatedMoviesList: []
+          topRatedMoviesList: [],
+          popularMoviesList: []
       };
   }
 
@@ -31,12 +32,20 @@ class App extends Component {
   }
 
   getTopRatedMovies = async () => {
-        await fetch(topRatedURL + apiKey)
-        .then(data => data.json())
-        .then(data => {
-            this.setState({ topRatedMoviesList: data.results})
-        })
-    }
+    await fetch(topRatedURL + apiKey)
+    .then(data => data.json())
+    .then(data => {
+        this.setState({ topRatedMoviesList: data.results})
+    })
+  }
+
+  getPopularMovies = async () => {
+      await fetch(popularURL + apiKey)
+      .then(data => data.json())
+      .then(data => {
+          this.setState({ popularMoviesList: data.results})
+      })
+  }
 
   render() {
     return (
@@ -49,7 +58,7 @@ class App extends Component {
             <h1>Movie Finder</h1>
           </div>
             <MainSearch searchMovies={this.searchMovies} handleSearchInput={this.handleSearchInput} />
-            {/* <PopularMoviesList /> */}
+            <PopularMoviesList getPopularMovies={this.getPopularMovies} />
             <TopRatedMoviesList getTopRatedMovies={this.getTopRatedMovies} topRatedMoviesList={this.state.topRatedMoviesList} />
             <List movies={this.state.movies} />
         </div>
